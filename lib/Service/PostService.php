@@ -87,9 +87,10 @@ class PostService {
 			$this->noteService->generateNote(
 				$post->getUserId(), htmlentities($post->getContent(), ENT_QUOTES), $post->getType()
 			);
-		
+
 		$this->noteService->replyTo($note, $post->getReplyTo());
 		$this->noteService->addRecipients($note, $post->getType(), $post->getTo());
+		$this->noteService->addHashtags($note, $post->getHashtags());
 
 		$actor = $this->actorService->getActorFromUserId($post->getUserId());
 
