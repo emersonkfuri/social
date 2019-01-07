@@ -305,6 +305,7 @@ class LocalController extends Controller {
 	 * @NoCSRFRequired
 	 * @NoAdminRequired
 	 *
+	 * @param string $hashtag
 	 * @param int $since
 	 * @param int $limit
 	 *
@@ -312,7 +313,8 @@ class LocalController extends Controller {
 	 */
 	public function streamTag(string $hashtag, int $since = 0, int $limit = 5): DataResponse {
 		try {
-			$posts = $this->noteService->getStreamLocalTag($hashtag, $since, $limit);
+			$this->initViewer(true);
+			$posts = $this->noteService->getStreamLocalTag($this->viewer, $hashtag, $since, $limit);
 
 			return $this->success($posts);
 		} catch (Exception $e) {
